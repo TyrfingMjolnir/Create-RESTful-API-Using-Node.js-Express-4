@@ -18,7 +18,7 @@ http://code.ciphertrick.com/2015/02/27/create-restful-api-using-node-js-express-
 * pacman -S npm
 * npm install nodejs
 
-##OpenSolaris, illumos, OpenIndiana, NexentaOS, SmartOS and OmniOS
+##OpenSolaris, illumos, OpenIndiana, SmartOS, etc
 * pkgin in postgresql
 * pkgin in nodejs
 
