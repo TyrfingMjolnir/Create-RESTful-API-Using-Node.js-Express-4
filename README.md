@@ -24,7 +24,7 @@ http://code.ciphertrick.com/2015/02/27/create-restful-api-using-node-js-express-
 
 ##All ( optional )
 * sudo npm install json -g
-* Example use: cat package.json | json
+* This is not exactly tidy for xml, but cating a json file through json: cat package.json | json
 
 ##Installation( lines 1 and 2 are suggestions )
 
