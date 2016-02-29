@@ -15,10 +15,10 @@ http://code.ciphertrick.com/2015/02/27/create-restful-api-using-node-js-express-
 
 ##Arch
 * pacman -S postgresql
-* pacman -S nodejs
 * pacman -S npm
+* npm install nodejs
 
-##Illumos
+##OpenSolaris, illumos, OpenIndiana, NexentaOS, SmartOS and OmniOS
 * pkgin in postgresql
 * pkgin in nodejs
 
