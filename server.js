@@ -1,41 +1,45 @@
 #!/usr/bin/env node
 
-var port       = 8080;
-var app        = require( 'express' )();
-var http       = require( 'http' ).Server(app);
-var mysql      = require( 'mysql' );
+var app        = require( 'express' )( );
+var http       = require( 'http' ).Server( app );
 var bodyParser = require( 'body-parser' );
-var connection = mysql.createConnection( {
-	host     : 'localhost',
-	user     : 'root',
-	password : '',
-	database : 'books',
-} );
 
-app.use( bodyParser.urlencoded( { extended: false } ) );
+var pg         = require( 'pg-native' );
+var connection = new pg();
+
+connection.connect( function( err ) {
+  if( err ) {
+    return console.error( 'could not connect to postgres', err );
+  }
+});
+
+app.use( bodyParser.urlencoded(
+  { extended: false }
+));
 app.use( bodyParser.json() );
 
+	
 app.get( '/', function( req, res ) {
 	var data = {
-		'Data': ''
+		"Data":""
 	};
-	data['Data'] = 'Welcome to Book Store DEMO...';
+	data["Data"] = "Welcome to Book Store DEMO...";
 	res.json( data );
 });
 
 app.get( '/book', function( req, res ) {
 	var data = {
-		'error': 1,
-		'Books': ''
+		"error": 1,
+		"Books": ""
 	};
 	
-	connection.query( 'SELECT * from book', function( err, rows, fields ) {
+	connection.query( 'SELECT * FROM "projectTemplate".user', function( err, rows, fields ) {
 		if( rows.length != 0 ) {
-			data[ 'error' ] = 0;
-			data[ 'Books' ] = rows;
+			data[ "error" ] = 0;
+			data[ "Books" ] = rows;
 			res.json( data );
-		} else {
-			data['Books'] = 'No books Found..';
+		}else{
+			data[ "Books" ] = 'No books Found..';
 			res.json( data );
 		}
 	});
@@ -46,27 +50,25 @@ app.post( '/book', function( req, res ) {
 	var Authorname = req.body.authorname;
 	var Price      = req.body.price;
 	var data       = {
-		'error': 1,
-		'Books': ''
+		"error":1,
+		"Books":""
 	};
-
 	if( !!Bookname && !!Authorname && !!Price ) {
-		connection.query( "INSERT INTO book VALUES( '', ?, ?, ? )", [
+		connection.query( "INSERT INTO \"projectTemplate\".user VALUES( '',?,?,?)", [
 				Bookname,
 				Authorname,
-				Price ],
-			function( err, rows, fields ) {
-				if( !!err ) {
-					data['Books'] = 'Error Adding data';
-				} else {
-					data['error'] = 0;
-					data['Books'] = 'Book Added Successfully';
-				}
-				res.json(data);
+				Price
+		],function( err, rows, fields ) {
+			if( !!err ) {
+				data[ "Books" ] = "Error Adding data";
+			} else {
+				data[ "error" ] = 0;
+				data[ "Books" ] = "Book Added Successfully";
 			}
-		);
+			res.json( data );
+		});
 	} else {
-		data['Books'] = 'Please provide all required data: Bookname, Authorname, Price, i e';
+		data[ "Books" ] = "Please provide all required data (i.e : Bookname, Authorname, Price)";
 		res.json( data );
 	}
 });
@@ -77,27 +79,26 @@ app.put( '/book', function( req, res ) {
 	var Authorname = req.body.authorname;
 	var Price      = req.body.price;
 	var data       = {
-		'error': 1,
-		'Books': ''
+		"error": 1,
+		"Books": ""
 	};
 	if( !!Id && !!Bookname && !!Authorname && !!Price ) {
-		connection.query( 'UPDATE book SET BookName=?, AuthorName=?, Price=? WHERE id=?', [
+		connection.query( "UPDATE FROM \"projectTemplate\".user SET BookName=?, AuthorName=?, Price=? WHERE id=?", [
 				Bookname,
 				Authorname,
 				Price,
-				Id],
-			function( err, rows, fields ) {
-				if( !!err ) {
-					data['Books'] = 'Error Updating data";
-				} else {
-					data['error'] = 0;
-					data['Books'] = 'Updated Book Successfully';
-				}
-			res.json(data);
+				Id
+		], function( err, rows, fields ) {
+			if( !!err ) {
+				data[ "Books" ] = "Error Updating data";
+			} else {
+				data[ "error" ] = 0;
+				data[ "Books" ] = "Updated Book Successfully";
 			}
-		);
+			res.json( data );
+		});
 	} else {
-		data['Books'] = 'Please provide all required data: Bookname, Authorname, Price, i e';
+		data[ "Books" ] = "Please provide all required data (i.e : id, Bookname, Authorname, Price)";
 		res.json( data );
 	}
 });
@@ -105,28 +106,30 @@ app.put( '/book', function( req, res ) {
 app.delete( '/book', function( req, res ) {
 	var Id   = req.body.id;
 	var data = {
-		'error': 1,
-		'Books': ''
+		"error": 1,
+		"Books": ""
 	};
 	if( !!Id ) {
-		connection.query( 'DELETE FROM book WHERE id=?',[
-				Id ],
-			function( err, rows, fields ) {
-				if( !!err ) {
-					data['Books'] = 'Error deleting data';
-				} else {
-					data['error'] = 0;
-					data['Books'] = 'Delete Book Successfully';
-				}
-				res.json( data );
+		connection.query( "DELETE FROM \"projectTemplate\".user WHERE id=?",[
+				Id
+		], function( err, rows, fields ) {
+			if( !!err ) {
+				data[ "Books" ] = "Error deleting data";
+			} else {
+				data[ "error" ] = 0;
+				data[ "Books" ] = "Delete Book Successfully";
 			}
-		);
+			res.json( data );
+		});
 	} else {
-		data['Books'] = 'Please provide all required data: id, i e';
+		data[ "Books" ] = "Please provide all required data (i.e : id )";
 		res.json( data );
 	}
 });
 
-http.listen( port, function() {
-	console.log( 'Connected & Listen to port ' + port );
+var myServerAddress = '0.0.0.0';
+var myServerPort    = 8080;
+
+http.listen( myServerPort, function() {
+	console.log( "Connected & Listen to port " + myServerPort );
 });
