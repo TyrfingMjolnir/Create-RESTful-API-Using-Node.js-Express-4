@@ -7,6 +7,12 @@ http://code.ciphertrick.com/2015/02/27/create-restful-api-using-node-js-express-
 ##Requirements
 * Node and npm w/express, bodyParser and pg[-native]
 * PostgreSQL
+##Mac
+* homebrew install postgresql
+##Arch
+* pacman -S postgresql
+##Illumos
+* pkgin postgresql
 
 ##Installation( lines 1 and 2 are suggestions )
 
