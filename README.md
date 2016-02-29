@@ -23,8 +23,8 @@ http://code.ciphertrick.com/2015/02/27/create-restful-api-using-node-js-express-
 * pkgin in nodejs
 
 ##All ( optional )
-* sudonpm install json -g 
-
+* sudo npm install json -g
+* Example use: cat package.json | json
 
 ##Installation( lines 1 and 2 are suggestions )
 
