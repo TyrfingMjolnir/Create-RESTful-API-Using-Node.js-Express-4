@@ -10,12 +10,21 @@ http://code.ciphertrick.com/2015/02/27/create-restful-api-using-node-js-express-
 
 ##Mac
 * homebrew install postgresql
+* homebrew install npm
+* npm install nodejs
 
 ##Arch
 * pacman -S postgresql
+* pacman -S nodejs
+* pacman -S npm
 
 ##Illumos
 * pkgin in postgresql
+* pkgin in nodejs
+
+##All ( optional )
+* sudonpm install json -g 
+
 
 ##Installation( lines 1 and 2 are suggestions )
 
