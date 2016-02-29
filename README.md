@@ -26,3 +26,5 @@ http://code.ciphertrick.com/2015/02/27/create-restful-api-using-node-js-express-
 * cd Create-RESTful-API-Using-Node.js-Express-4
 * Install dependencies: npm install  
 * Start the server: ./server.js&
+
+Notice that the method of logging in to postgreSQL is logging in to the user that runs the script. As such 1 user pr project would be a possibility.
