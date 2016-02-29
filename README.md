@@ -15,7 +15,7 @@ http://code.ciphertrick.com/2015/02/27/create-restful-api-using-node-js-express-
 * pacman -S postgresql
 
 ##Illumos
-* pkgin postgresql
+* pkgin in postgresql
 
 ##Installation( lines 1 and 2 are suggestions )
 
